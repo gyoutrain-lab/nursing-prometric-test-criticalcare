@@ -4,48 +4,47 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta property="og:title" content="Critical Care & Emergency Prometric Simulation Test" />
-  <meta property="og:description" content="SMLE-based materials — Train yourself better to achieve your higher career with better solutions." />
+  <meta property="og:description" content="SMLE-based materials — Train yourself to achieve your higher career with better solutions." />
   <meta property="og:image" content="https://raw.githubusercontent.com/gyoutrain-lab/nursing-prometric-test/main/icon3.jpg" />
   <meta property="og:type" content="website" />
   <title>Critical Care & Emergency Prometric Simulation Test</title>
-
   <style>
     body {
       margin: 0;
       padding: 0;
       height: 100vh;
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       background-color: #000;
       font-family: 'Segoe UI', Arial, sans-serif;
       color: white;
-      overflow: hidden;
     }
     .background {
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: url('icon3.jpg') no-repeat center center/cover;
-      filter: brightness(0.7);
       z-index: -1;
+      filter: brightness(0.75);
     }
     .overlay {
       text-align: center;
-      background: rgba(0,0,0,0.4);
+      background: rgba(0, 0, 0, 0.3);
       padding: 40px;
       border-radius: 20px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.6);
-      max-width: 520px;
     }
     h1 {
-      font-size: 1.9rem;
+      font-size: 2rem;
+      color: #fff;
       text-shadow: 1px 1px 4px #000;
-      margin-bottom: 5px;
     }
     h2 {
       font-size: 1.2rem;
-      color: #ff5555;
+      color: #ff4444;
       margin-bottom: 15px;
     }
     p {
@@ -53,43 +52,7 @@
       color: #f1f1f1;
       margin-bottom: 25px;
     }
-    .progress-container {
-      width: 100%;
-      background: rgba(255,255,255,0.1);
-      border-radius: 30px;
-      overflow: hidden;
-      height: 25px;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-    }
-    .progress-fill {
-      width: 0%;
-      height: 100%;
-      background: linear-gradient(90deg, #00ff88, #00cc66);
-      transition: width 1s ease-in-out;
-    }
-    .progress-info {
-      margin-top: 12px;
-      font-size: 1rem;
-      font-weight: 600;
-      text-shadow: 0 0 5px rgba(0,0,0,0.7);
-    }
-    .pass {
-      color: #00ff88;
-    }
-    .fail {
-      color: #ff4444;
-    }
-    .running {
-      animation: pulse 1.2s infinite;
-      color: #ffd700;
-    }
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.4; }
-      100% { opacity: 1; }
-    }
     .start-button {
-      margin-top: 20px;
       background-color: #ff4c4c;
       border: none;
       padding: 14px 30px;
@@ -116,75 +79,21 @@
     }
   </style>
 </head>
-
 <body>
   <div class="background"></div>
 
   <div class="overlay">
     <h1>Critical Care & Emergency Prometric Simulation Test</h1>
     <h2>SMLE-based materials</h2>
-    <p>Train yourself better to achieve your higher career with better solutions.</p>
-
-    <div class="progress-container">
-      <div class="progress-fill" id="progressFill"></div>
-    </div>
-    <div class="progress-info" id="progressText">Initializing progress...</div>
-
-    <button class="start-button" onclick="startTest()">Start the Test</button>
+    <p>Prepared by <strong>Giyono Asfarrasyid, ETK Yogyakarta</strong><br>
+    Train yourself better to achieve your higher career with better solutions.</p>
+    <button class="start-button" onclick="window.location.href='https://script.google.com/macros/s/AKfycbzvNcCpfK7_8l88uk994WAAcjIqaZuDcRiFdWzlkURwK6KwxJGMLDWTHVL0hoNpv-JMng/exec'">
+      Start the Test
+    </button>
   </div>
 
   <div class="footer-text">
-    Prepared by <strong>Giyono Asfarrasyid, ETK Yogyakarta</strong>
+    Critical Care & Emergency
   </div>
-
-  <script>
-    const scriptURL = "YOUR_DEPLOYED_WEBAPP_URL"; // <— paste your real /exec URL here
-    const passingGrade = 70;
-    const progressFill = document.getElementById("progressFill");
-    const progressText = document.getElementById("progressText");
-
-    async function loadResults() {
-      progressText.textContent = "Running...";
-      progressText.classList.add("running");
-
-      try {
-        const res = await fetch(scriptURL + "?t=" + Date.now());
-        const data = await res.json();
-
-        if (data.error) throw new Error(data.error);
-
-        const correct = data.correct || 0;
-        const incorrect = data.incorrect || 0;
-        const total = data.total || 1;
-        const percent = Math.round((correct / total) * 100);
-
-        progressFill.style.width = percent + "%";
-
-        progressText.classList.remove("pass","fail","running");
-        progressText.textContent = `✅ Correct: ${correct} | ❌ Incorrect: ${incorrect} | 📊 Score: ${percent}%`;
-
-        if (percent >= passingGrade) {
-          progressText.classList.add("pass");
-          progressText.textContent += " — PASSED 🎉";
-        } else {
-          progressText.classList.add("fail");
-          progressText.textContent += " — FAILED ❌";
-        }
-
-      } catch (e) {
-        progressFill.style.width = "0%";
-        progressText.classList.remove("pass","fail","running");
-        progressText.textContent = "⚠️ Unable to load results. Please check your Google Script access.";
-        console.error(e);
-      }
-    }
-
-    function startTest() {
-      window.location.href = scriptURL;
-    }
-
-    loadResults();
-    setInterval(loadResults, 10000);
-  </script>
 </body>
 </html>
